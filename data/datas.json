@@ -1,0 +1,40 @@
+{
+    "entries":[
+        {
+            "name" : "区立保育園",
+            "url" : "./data/geojson/kuritsuhoikuen.geojson",
+            "iconUrl" : "./data/icon/child_icon01.png"
+        },
+        {
+            "name" : "児童館",
+            "url" : "./data/geojson/33_jidoukan.geojson",
+            "iconUrl" : "./data/icon/child_icon02.png"
+        },
+        {
+            "name" : "併設学童",
+            "url" : "./data/geojson/34_heisetsugakudou.geojson",
+            "iconUrl" : "./data/icon/child_icon03.png"
+        },
+        {
+            "name" : "単独学童",
+            "url" : "./data/geojson/34_tandokugakudou.geojson",
+            "iconUrl" : "./data/icon/child_icon04.png"
+        },
+        {
+            "name" : "区立幼稚園",
+            "url" : "./data/geojson/35_kuritsuyouchien.geojson",
+            "iconUrl" : "./data/icon/child_icon05.png"
+        },
+        {
+            "name" : "区立小学校",
+            "url" : "./data/geojson/36_kuritsushougakkou.geojson",
+            "iconUrl" : "./data/icon/child_icon06.png"
+        },
+        {
+            "name" : "区立中学校",
+            "url" : "./data/geojson/37_kuritsuchuugakkou.geojson",
+            "iconUrl" : "./data/icon/child_icon07.png",
+            "isLastEntry" : true
+        }
+    ]
+}
