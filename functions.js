@@ -70,7 +70,7 @@ function onCreate() {
                 //layer.addTo(map) ;
 
                 if (entry.isLastEntry == true) {
-                    var control = L.control.layers(null, layerGroups, {collapsed: false, position: 'topleft'}) ;
+                    var control = L.control.layers(null, layerGroups, {collapsed: true, position: 'topleft'}) ;
 
                     control.addTo(map);
                 }
