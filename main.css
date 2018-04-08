@@ -17,6 +17,10 @@ html, body, #map {
     border-radius: 5px;
 }
 
+.info h2 {
+    line-height: 1.5;
+}
+
 #map-wrapper {
     width: 100%;
     height: 100%;

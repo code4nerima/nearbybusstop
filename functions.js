@@ -35,6 +35,16 @@ function onCreate() {
 
     layers = new Array();
  
+    // bicycle data.
+    $.getJSON('./area_data/public_transport/bicycle/bicycle_parking.geojson', function(data) {
+        layers.push(createBicycleParkingLayer(data)) ;
+    });
+
+    // car data.
+    $.getJSON('./area_data/public_transport/car/car_parking.geojson', function(data) {
+        layers.push(createCarParkingLayer(data)) ;
+    });
+
     // train data.
     $.getJSON('./area_data/public_transport/train/train_station.geojson', function(data) {
         layers.push(createTrainStationLayer(data)) ;
@@ -229,6 +239,93 @@ function createAreaLayer(data) {
             }
         }
     }) ;
+}
+
+function createBicycleParkingLayer(data) {
+    var bicycleIcon = L.icon({
+        iconUrl: 'area_data/public_transport/bicycle/bicycle_icon.png',
+        iconSize: [30, 30],
+        popupAnchor: [0, -10],
+    });
+
+    return L.geoJson(data, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {icon : bicycleIcon}) ;
+        },
+        onEachFeature: function(feature, layer) {
+            
+            var iconFilePath = 'area_data/public_transport/bicycle/bicycle_icon.png' ;
+            var popupContents = "<img src=\"" + iconFilePath + "\"  width=\"30\"/>";
+            
+            popupContents += "<h2>" + feature.properties.施設名 + "</h2>";
+
+            popupContents += "<table>"
+        
+            popupContents += "<tr><td>住所　</td><td>" + feature.properties.所在地 + "</td></tr>" ;
+            popupContents += "<tr><td>自転車適正収容台数　</td><td>" + feature.properties.自転車適正収容台数 + "</td></tr>" ;
+            popupContents += "<tr><td>原付適正収容台数　</td><td>" + feature.properties.原付適正収容台数 + "</td></tr>" ;
+            
+            popupContents += "</table>" ;
+
+            layer.bindPopup(popupContents);
+
+            layer.on({
+        		mouseover: function(e){
+					info.update(popupContents);
+				},
+        		mouseout: function(e){
+					
+				},
+        		click: function(e){
+
+				}
+    		});
+        }
+    })
+}
+
+function createCarParkingLayer(data) {
+    var bicycleIcon = L.icon({
+        iconUrl: 'area_data/public_transport/car/car_icon.png',
+        iconSize: [30, 30],
+        popupAnchor: [0, -10],
+    });
+
+    return L.geoJson(data, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {icon : bicycleIcon}) ;
+        },
+        onEachFeature: function(feature, layer) {
+            
+            var iconFilePath = 'area_data/public_transport/car/car_icon.png' ;
+            var popupContents = "<img src=\"" + iconFilePath + "\"  width=\"30\"/>";
+            
+            popupContents += "<h2>" + feature.properties.施設名 + "</h2>";
+
+            popupContents += "<table>"
+        
+            popupContents += "<tr><td>電話　</td><td>" + feature.properties.電話番号 + "</td></tr>" ;
+            popupContents += "<tr><td>住所　</td><td>" + feature.properties.所在地 + "</td></tr>" ;
+            popupContents += "<tr><td>自動車適正収容台数　</td><td>" + feature.properties.自動車適正収容台数 + "</td></tr>" ;
+            popupContents += "<tr><td>自動二輪車適正収容台数　</td><td>" + feature.properties.自動二輪車適正収容台数 + "</td></tr>" ;
+            
+            popupContents += "</table>" ;
+
+            layer.bindPopup(popupContents);
+
+            layer.on({
+        		mouseover: function(e){
+					info.update(popupContents);
+				},
+        		mouseout: function(e){
+					
+				},
+        		click: function(e){
+
+				}
+    		});
+        }
+    })
 }
 
 var currentBusStopFeature ;
