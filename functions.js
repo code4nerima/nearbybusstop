@@ -579,7 +579,7 @@ function onSearchRoot(e) {
     } ;
 
     var onBusRootFilter = function(feature) {
-        if (currentBusStopFeature != null) {
+        if (currentBusStopFeature == null) {
             return true ;
         }
 
