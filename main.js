@@ -4,9 +4,9 @@ var info ;
 function main() {
 	var c = $.cookie() ;
 
-	var lat = $.cookie('lat');
-	var lng = $.cookie('lng');
-	var zoom = $.cookie('zoom');
+	var lat = $.cookie('nearbybusstop_lat');
+	var lng = $.cookie('nearbybusstop_lng');
+	var zoom = $.cookie('nearbybusstop_zoom');
 	
 	var latlng = [35.737841, 139.653912];
 
@@ -51,7 +51,7 @@ function main() {
 function saveMap() {
     var c = map.getCenter() ;
         var z = map.getZoom() ;
-        $.cookie('lat', c.lat, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
-        $.cookie('lng', c.lng, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
-        $.cookie('zoom', z, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
+        $.cookie('nearbybusstop_lat', c.lat, { expires: 7, path: '/' });
+        $.cookie('nearbybusstop_lng', c.lng, { expires: 7, path: '/' });
+        $.cookie('nearbybusstop_zoom', z, { expires: 7, path: '/' });
 }
