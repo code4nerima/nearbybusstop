@@ -11,6 +11,17 @@ var filteredBusStopLayers ;
 // onCreate : This function is called when page began.
 function onCreate() {
     
+    L.easyButton('fa-home', function(btn, map){
+        var latlng = [35.737841, 139.65391];
+        map.setView(latlng, 15);
+
+        saveMap() ;
+    }).addTo(map);
+
+    L.easyButton('fa-undo', function(btn, map){
+        onSearchReset();
+    }).addTo(map);
+
     var bordersFilePathArray = new Array() ;
 
     bordersFilePathArray.push('area_data/borders/area01.geojson') ;
@@ -34,7 +45,6 @@ function onCreate() {
     });
 
     basicBusStopLayers = new Array();
-    filteredBusStopLayers = new Array();
 
     // bus data.
     $.getJSON('./area_data/public_transport/bus/bus_stop01.geojson', function(data) {
@@ -90,6 +100,10 @@ function onCreate() {
     map.on('zoomend', function(e) {
         showLayers(e.target._zoom) ;
     }) ;
+
+    map.on('moveend', function(e) {
+        saveMap() ;
+    }) ;
 }
 
 // Show layers. Depend on zoom rate.
@@ -139,6 +153,7 @@ function addInfoLayer() {
 	$(".info").css("display", "none") ;
 }
 
+// This function is for create data layer.
 function createDataLayer(data, iconUrl) {
     var markerIcon = L.icon({
         iconUrl: iconUrl,
@@ -467,6 +482,10 @@ function onSearchRoot(e) {
     } ;
 
     var onBusRootFilter = function(feature) {
+        if (currentBusStopFeature != null) {
+            return true ;
+        }
+
         var currentCompanies = currentBusStopFeature.properties.P11_003_1.split(",");
         var currentIdentifies = currentBusStopFeature.properties.P11_004_1.split(",");
         var array = Array()
@@ -517,6 +536,11 @@ function onSearchRoot(e) {
 }
 
 function onSearchReset() {
+    if (filteredBusStopLayers == null) {
+        alert('このボタンはバス停の検索をリセットします。\n路線検索をしたいバス停をクリックして検索してください。') ;
+        return ;
+    }
+
     for (var i=0; i<filteredBusStopLayers.length; i++) {
         filteredBusStopLayers[i].remove(map) ;
     }
@@ -530,4 +554,5 @@ function onSearchReset() {
     }
 
     currentBusStopFeature = null ;
+    filteredBusStopLayers = null ;
 }

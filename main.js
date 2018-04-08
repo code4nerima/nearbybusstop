@@ -2,9 +2,19 @@ var map;
 var info ;
 
 function main() {
-	var latlng = [35.737841　, 139.653912];
+	var c = $.cookie() ;
 
-	map = L.map('map').setView(latlng, 15);
+	var lat = $.cookie('lat');
+	var lng = $.cookie('lng');
+	var zoom = $.cookie('zoom');
+	
+	var latlng = [35.737841, 139.653912];
+
+	if (lat != null && lng != null) {
+		latlng = [lat, lng];
+	}
+
+	map = L.map('map', {zoomControl: true}).setView(latlng, zoom != null ? zoom : 15);
 	
 	var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 	
@@ -36,4 +46,12 @@ function main() {
 	
 	});
 	*/
+}
+
+function saveMap() {
+    var c = map.getCenter() ;
+        var z = map.getZoom() ;
+        $.cookie('lat', c.lat, { expires: 7, path: '/' });
+        $.cookie('lng', c.lng, { expires: 7, path: '/' });
+        $.cookie('zoom', z, { expires: 7, path: '/' });
 }
