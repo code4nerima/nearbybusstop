@@ -51,7 +51,7 @@ function main() {
 function saveMap() {
     var c = map.getCenter() ;
         var z = map.getZoom() ;
-        $.cookie('lat', c.lat, { expires: 7, path: '/' });
-        $.cookie('lng', c.lng, { expires: 7, path: '/' });
-        $.cookie('zoom', z, { expires: 7, path: '/' });
+        $.cookie('lat', c.lat, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
+        $.cookie('lng', c.lng, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
+        $.cookie('zoom', z, { expires: 7, path: 'https://code4nerima.github.io/nearbybusstop/' });
 }
