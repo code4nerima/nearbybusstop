@@ -80,28 +80,11 @@ function onCreate() {
     var layerGroups = Array();
 
     $.getJSON('./data/datas.json', function(data) { 
-
-        function load(entry) {
-            $.getJSON(entry.url, function(data) { 
-                var layer = createDataLayer(data, entry.iconUrl) ;
-                var caption = "<span class=\"label\"><img src=\"" + entry.iconUrl + "\" width=\"30\"><span class=\"text\">" + entry.name + "</span></span>" ;
-
-                layerGroups[caption] = L.layerGroup([layer]).addTo(map);
-                //layer.addTo(map) ;
-
-                if (entry.isLastEntry == true) {
-                    var control = L.control.layers(null, layerGroups, {collapsed: true, position: 'topleft'}) ;
-
-                    control.addTo(map);
-                }
-            }) ;
-        }
-
         var entries = data.entries ;
 
         for (var i=0; i<entries.length; i++) {
             var entry = entries[i] ;
-            load(entry) ;
+            addEntry(entry, layerGroups) ;
         }
     }) ;
 
@@ -113,6 +96,21 @@ function onCreate() {
 
     map.on('moveend', function(e) {
         saveMap() ;
+    }) ;
+}
+
+function addEntry(entry, layerGroups) {
+    $.getJSON(entry.url, function(data) { 
+        var layer = createDataLayer(data, entry.iconUrl) ;
+        var caption = "<span class=\"label\"><img src=\"" + entry.iconUrl + "\" width=\"30\"><span class=\"text\">" + entry.name + "</span></span>" ;
+
+        layerGroups[caption] = L.layerGroup([layer]).addTo(map);
+        //layer.addTo(map) ;
+
+        if (entry.isLastEntry == true) {
+            var control = L.control.layers(null, layerGroups, {collapsed: true, position: 'topleft'}) ;
+            control.addTo(map);
+        }
     }) ;
 }
 
