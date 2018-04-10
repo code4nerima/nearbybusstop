@@ -78,9 +78,13 @@ function onCreate() {
     
     // datas
     var layerGroups = Array();
+    layerGroupsTotalCount = 0 ;
+    layerGroupsCount = 0 ;
 
     $.getJSON('./data/datas.json', function(data) { 
         var entries = data.entries ;
+
+        layerGroupsTotalCount = entries.length ;
 
         for (var i=0; i<entries.length; i++) {
             var entry = entries[i] ;
@@ -99,15 +103,20 @@ function onCreate() {
     }) ;
 }
 
+var layerGroupsTotalCount = 0 ;
+var layerGroupsCount = 0 ;
+
 function addEntry(entry, layerGroups) {
     $.getJSON(entry.url, function(data) { 
+        layerGroupsCount++ ;
+
         var layer = createDataLayer(data, entry.iconUrl) ;
         var caption = "<span class=\"label\"><img src=\"" + entry.iconUrl + "\" width=\"30\"><span class=\"text\">" + entry.name + "</span></span>" ;
 
         layerGroups[caption] = L.layerGroup([layer]).addTo(map);
         //layer.addTo(map) ;
 
-        if (entry.isLastEntry == true) {
+        if (layerGroupsCount == layerGroupsTotalCount) {
             var control = L.control.layers(null, layerGroups, {collapsed: true, position: 'topleft'}) ;
             control.addTo(map);
         }
